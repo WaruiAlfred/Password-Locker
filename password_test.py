@@ -43,6 +43,19 @@ class TestPassword(unittest.TestCase):
     self.assertEqual(len(User.users_list),1) #checking if users list length has increased
     self.assertEqual(len(Credentials.credentials_list),1) #checking if credentials list length has increased
     
+  def test_save_multiple_credentials(self): 
+    '''
+    Test to confirm if multiple credentials can be saved in the credentials list
+    '''
+    self.new_credentials.save_credentials()
+    test_credential = Credentials("facebook","bale","meforyou") # new credential details
+    test_credential.save_credentials()
+    
+    #error message in case test case fails
+    message = "Unable to add multiple credentials to credentials list"
+    
+    self.assertGreater(len(Credentials.credentials_list),1,message) #Checking if length of credentials list has increased
+    
 if __name__ == '__main__':
     unittest.main()   
     
