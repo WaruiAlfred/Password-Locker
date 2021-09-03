@@ -40,7 +40,7 @@ def main():
   print("\n")
   
   while True: #If all the functions called satisfy their conditions the loop continues otherwise,it stops
-    print("Use these key abbreviations to perform different actions in the application: ca - create a new account, sec - store existing credential details, ex - exit the application")
+    print("Use these key abbreviations to perform different actions in the application: ca - create a new account, sec - store existing credential details, cnew - create new account credentials, ex - exit the application")
     
     key_abbreviations = input().lower()
     
@@ -50,7 +50,6 @@ def main():
       
       print("What is your official name?")
       o_name = input()
-      
       
       print("Username.....")
       u_name = input()
@@ -66,8 +65,8 @@ def main():
         print(f"Congratulations {o_name}, you have successfully created an account.")
         print('\n')
       else: 
-        print("Your password characters don't match!")
-      
+        print("Your password characters don't match!Try again.")
+        break
      
     elif key_abbreviations == "sec": 
       print(f"Welcome back, {o_name}. Go ahead and store your existing accounts credentials.") 
@@ -86,6 +85,33 @@ def main():
       print(f"You have successfully saved details of your {acc_name} account.")
       print("\n")
       
+    elif key_abbreviations == "cnew": 
+      print("Create new account credentials")
+      
+      print("Which account credential do you want to create?(e.g twitter)")
+      new_account = input()
+      
+      print("What would you like to be your username?")
+      new_username = input()
+      
+      print("Would you like the application to generate a password for you?(Y/N)")
+      user_preference = input()
+      if user_preference == "Y": 
+        new_password = f"1234{new_account}"
+        print("\n")
+        print(f"Your {new_account} password is: {new_password}")
+      else: 
+        print("Input password of your choice:")
+        new_password = input()
+        print("\n")
+        print(f"Your {new_account} password is: {new_password}")
+        
+        
+      print("\n")
+      save_credentials_details(create_credentials(new_account,new_username,new_password)) # create and save new users' account credentials.
+      print(f"You have successfully created your new {new_account} account credentials.")
+      print("\n")
+    
     elif key_abbreviations == 'ex': 
       print("Thank you for using our application ......")
       break
