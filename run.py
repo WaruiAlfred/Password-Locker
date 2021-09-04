@@ -29,7 +29,17 @@ def save_credentials_details(credentials):
   '''
   credentials.save_credentials()
   
+def find_account(password_input):
+    '''
+    Function that locates a user's account and displays the user's credentials
+    '''
+    return User.find_by_password(password_input)
   
+def find_credential(account_name_input):
+    '''
+    Function that locates a user's credentials by account name and displays the details
+    '''
+    return Credentials.find_credential(account_name_input)
   
 def main(): 
   '''
@@ -40,7 +50,7 @@ def main():
   print("\n")
   
   while True: #If all the functions called satisfy their conditions the loop continues otherwise,it stops
-    print("Use these key abbreviations to perform different actions in the application: ca - create a new account, sec - store existing credential details, cnew - create new account credentials, ex - exit the application")
+    print("Use these key abbreviations to perform different actions in the application: ca - create a new account, sec - store existing credential details, cnew - create new account credentials, dac - display account credentials, ex - exit the application")
     
     key_abbreviations = input().lower()
     
@@ -112,6 +122,24 @@ def main():
       print(f"You have successfully created your new {new_account} account credentials.")
       print("\n")
     
+    elif key_abbreviations == "dac": 
+      print("Input password to login into your Password Locker account and view credentials.")
+      password_input = input()
+      if find_account(password_input): 
+        print("Please input name of account credential you want to view")
+        account_to_find = input()
+        if find_credential(account_to_find): 
+          outcome = find_credential(account_to_find)
+          print("\n")
+          print("Here are the details to the account credentials you are looking for.")
+          print("-"*20)
+          print(f"{outcome.account}")
+          print(f"{outcome.username}")
+          print(f"{outcome.password}")
+      else: 
+        print("Sorry,no account with such password exists!Please try entering the correct password.")
+        print("\n")
+        
     elif key_abbreviations == 'ex': 
       print("Thank you for using our application ......")
       break
