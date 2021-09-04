@@ -56,6 +56,40 @@ class TestPassword(unittest.TestCase):
     
     self.assertGreater(len(Credentials.credentials_list),1,message) #Checking if length of credentials list has increased
     
+  def test_save_multiple_users(self): 
+    '''
+    Test to confirm if multiple users can create accounts
+    '''
+    self.new_user.save_user()
+    test_user = User("Mercy Mumbi","Alice","9876") #new user account
+    test_user.save_user()
+    
+    self.assertEqual(len(User.users_list),2)
+    
+  def test_find_account_by_password(self): 
+    '''
+    Test to confirm if a user(s) account can be accessed by the inputted password and credentials information displayed
+    '''
+    self.new_user.save_user()
+    test_user = User("Mercy Mumbi","Alice","9876") #new user account
+    test_user.save_user()
+    
+    found_user = User.find_by_password("9876")
+    
+    self.assertEqual(found_user.password,test_user.password)
+    
+  def test_find_credential(self): 
+    '''
+    Test to confirm whether the credential located is the correct one
+    '''
+    self.new_credentials.save_credentials()
+    test_credential = Credentials("facebook","bale","meforyou") # new credential details
+    test_credential.save_credentials()
+    
+    found_credential = Credentials.find_credential("facebook")
+    
+    self.assertEqual(found_credential.account,test_credential.account)
+    
 if __name__ == '__main__':
     unittest.main()   
     
