@@ -18,7 +18,7 @@ There are no dependencies.
 ## Known Bugs
 There are known bugs.
 ## Technologies Used
-Flask a Python framework
+PYTHON:It was used to authenticate users' account passwords and generate passwords for new account credentials.
 ## My contacts
 Feel free to contact me for assistance if need be or to offer suggestions for improvements.
 
