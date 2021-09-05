@@ -55,7 +55,7 @@ def main():
   print("Welcome to Password Locker.")
   print("\n")
   
-  while True: #If all the functions called satisfy their conditions the loop continues otherwise,it stops
+  while True: #Execution of functions continues if their conditions are satisfied,otherwise the execution halts
     print("Use these key abbreviations to create an account and/or to login to your account: ca - create a new account, sec - store existing credential details, cnew - create new account credentials, dac - display account credentials, dc - delete credentials account, ex - exit application")
     
     key_abbreviations = input().lower()
