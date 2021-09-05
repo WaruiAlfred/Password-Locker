@@ -41,6 +41,12 @@ def find_credential(account_name_input):
     '''
     return Credentials.find_credential(account_name_input)
   
+def delete_credential(to_delete): 
+  '''
+  Function that locates a credentials account and deletes it
+  '''
+  return Credentials.delete_credential_account(to_delete)
+  
 def main(): 
   '''
   Main function that calls all other application functions
@@ -50,11 +56,12 @@ def main():
   print("\n")
   
   while True: #If all the functions called satisfy their conditions the loop continues otherwise,it stops
-    print("Use these key abbreviations to perform different actions in the application: ca - create a new account, sec - store existing credential details, cnew - create new account credentials, dac - display account credentials, ex - exit the application")
+    print("Use these key abbreviations to create an account and/or to login to your account: ca - create a new account, sec - store existing credential details, cnew - create new account credentials, dac - display account credentials, dc - delete credentials account, ex - exit application")
     
     key_abbreviations = input().lower()
     
     if key_abbreviations == "ca": 
+      print("\n")
       print("Account Creation")
       print("-" * 16)
       
@@ -76,73 +83,103 @@ def main():
         print('\n')
       else: 
         print("Your password characters don't match!Try again.")
-        break
+        print("\n")
      
     elif key_abbreviations == "sec": 
-      print(f"Welcome back, {o_name}. Go ahead and store your existing accounts credentials.") 
-      
-      print("Account name...")
-      acc_name = input()
-      
-      print("Account username...")
-      acc_username = input()
-      
-      print("Account password...")
-      acc_password = input()
-      
-      print("\n")
-      save_credentials_details(create_credentials(acc_name,acc_username,acc_password)) # create and save new users' account credentials.
-      print(f"You have successfully saved details of your {acc_name} account.")
-      print("\n")
+      try:
+        print("\n")
+        print(f"Welcome back, {o_name}. Go ahead and store your existing accounts credentials.") 
+        
+        print("Account name...")
+        acc_name = input()
+        
+        print("Account username...")
+        acc_username = input()
+        
+        print("Account password...")
+        acc_password = input()
+        
+        print("\n")
+        save_credentials_details(create_credentials(acc_name,acc_username,acc_password)) # create and save new users' account credentials.
+        print(f"You have successfully saved details of your {acc_name} account.")
+        print("\n")
+      except UnboundLocalError: 
+        message = print("You have to create an account first!!")
+        return message
       
     elif key_abbreviations == "cnew": 
-      print("Create new account credentials")
-      
-      print("Which account credential do you want to create?(e.g twitter)")
-      new_account = input()
-      
-      print("What would you like to be your username?")
-      new_username = input()
-      
-      print("Would you like the application to generate a password for you?(Y/N)")
-      user_preference = input()
-      if user_preference == "Y": 
-        new_password = f"1234{new_account}"
+      try:
         print("\n")
-        print(f"Your {new_account} password is: {new_password}")
-      else: 
-        print("Input password of your choice:")
-        new_password = input()
+        print(f"Welcome back, {o_name}....") 
+        print("Create new account credentials")
         print("\n")
-        print(f"Your {new_account} password is: {new_password}")
         
+        print("Which account credential do you want to create?(e.g twitter)")
+        new_account = input()
         
-      print("\n")
-      save_credentials_details(create_credentials(new_account,new_username,new_password)) # create and save new users' account credentials.
-      print(f"You have successfully created your new {new_account} account credentials.")
-      print("\n")
+        print("What would you like to be your username?")
+        new_username = input()
+        
+        print("Would you like the application to generate a password for you?(Y/N)")
+        user_preference = input()
+        if user_preference == "Y": 
+          new_password = f"1234{new_account}"
+          print("\n")
+          print(f"Your {new_account} password is: {new_password}")
+        else: 
+          print("Input password of your choice:")
+          new_password = input()
+          print("\n")
+          print(f"Your {new_account} password is: {new_password}")
+            
+        print("\n")
+        save_credentials_details(create_credentials(new_account,new_username,new_password)) # create and save new users' account credentials.
+        print(f"You have successfully created your new {new_account} account credentials.")
+        print("\n")
+      except UnboundLocalError: 
+        message = print("You have to create an account first!!")
+        return message
     
     elif key_abbreviations == "dac": 
-      print("Input password to login into your Password Locker account and view credentials.")
+      print("\n")
+      print("Input your password to login to your account and view credentials.")
       password_input = input()
       if find_account(password_input): 
-        print("Please input name of account credential you want to view")
+        print("Type in the name(i.e twitter) of account credential you want to view")
         account_to_find = input()
         if find_credential(account_to_find): 
           outcome = find_credential(account_to_find)
           print("\n")
           print("Here are the details to the account credentials you are looking for.")
           print("-"*20)
-          print(f"{outcome.account}")
-          print(f"{outcome.username}")
-          print(f"{outcome.password}")
+          print(f"Account name: {outcome.account}")
+          print(f"Username: {outcome.username}")
+          print(f"Password: {outcome.password}")
+          print("\n")
+        else: 
+          print("Sorry,no credential account with such name exists!Please try entering the correct name or creating the credential account.")
+          print("\n")
+          
       else: 
-        print("Sorry,no account with such password exists!Please try entering the correct password.")
+        print("Unable to login.Try re-entering the password correctly or create an account if you haven't.")
+        print("\n")
+        
+    elif key_abbreviations == "dc": 
+      print("\n")
+      print("Enter account name(i.e twitter) of the credentials that you want to delete.")
+      account_to_delete = input()
+      if delete_credential(account_to_delete): 
+        print("\n")
+        print(f"You have successfully deleted your {account_to_delete} account credential.")
+        print("\n")
+      else: 
+        print("Sorry.No credentials to the account name you inputted exist.")
         print("\n")
         
     elif key_abbreviations == 'ex': 
       print("Thank you for using our application ......")
       break
+    
     else: 
       print("I didn't get that. Please use the correct key abbreviations")
       
