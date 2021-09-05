@@ -90,6 +90,18 @@ class TestPassword(unittest.TestCase):
     
     self.assertEqual(found_credential.account,test_credential.account)
     
+  def test_delete_credentials_account(self): 
+    '''
+    Test to confirm whether a credentials account has been deleted
+    '''
+    self.new_credentials.save_credentials()
+    test_credential = Credentials("facebook","bale","meforyou") # new credential details
+    test_credential.save_credentials()
+    
+    test_credential.delete_credential_account("facebook") #Deleting a credential account
+    
+    self.assertEqual(len(Credentials.credentials_list),1)
+    
 if __name__ == '__main__':
     unittest.main()   
     

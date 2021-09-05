@@ -20,6 +20,16 @@ class Credentials:
       if found.account == account_name_input:
         return found
   
+  @classmethod
+  def delete_credential_account(self,to_delete): 
+    '''
+    Method to delete a credential account
+    '''
+    for indeletion in self.credentials_list:
+      if indeletion.account == to_delete:
+        return Credentials.credentials_list.remove(indeletion)
+    
+  
   def __init__(self,account,u_name,p_word):
     #Properties for objects instantiating credentials class defined
     self.account = account
