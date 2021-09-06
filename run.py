@@ -71,19 +71,26 @@ def main():
       print("Username.....")
       u_name = input()
       
-      print("Password.....")
+      print("Password(minimum of 5 characters).....")
       p_word = input()
-      print("Confirm password")
-      test_password = input()
-      
-      if p_word == test_password: 
-        print("\n")
-        save_user_details(create_user(o_name,u_name,p_word)) # create and save new user.
-        print(f"Congratulations {o_name}, you have successfully created an account.")
-        print('\n')
+      if len(p_word) >= 5:
+        print("Confirm password")
+        test_password = input()
       else: 
-        print("Your password characters don't match!Try again.")
-        print("\n")
+        print("Consider creating a password that has a more than 5 characters.")
+      
+      try:
+        if p_word == test_password: 
+          print("\n")
+          save_user_details(create_user(o_name,u_name,p_word)) # create and save new user.
+          print(f"Congratulations {o_name}, you have successfully created an account.")
+          print('\n')
+        else: 
+          print("Your password characters don't match!Try again.")
+          print("\n")
+      except UnboundLocalError: 
+        error_message =print("Failure to create an account")
+        return error_message
      
     elif key_abbreviations == "sec": 
       try:
